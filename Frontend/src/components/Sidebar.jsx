@@ -1,31 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import SidebarItem from "./SidebarItem";
 import { NavLink } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function Sidebar({ isOpen }) {
+export default function Sidebar({ isOpen, closeSidebar }) {
+  // DESKTOP collapse state
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
     <aside
       className={`
-        fixed md:static top-0 left-0 h-full
-        bg-white p-4 py-8 shadow-md z-50
-        transform transition-transform duration-300
-        ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+        fixed md:static top-0 left-0 h-full 
+        bg-white shadow-sm z-60 p-4 py-4 lg:py-8 
+        transform transition-all duration-300 mt-14 lg:mt-9
+
+        /* WIDTH CONTROL */
+        ${collapsed ? "lg:w-[70px]" : "lg:w-[220px]"}
+        md:w-[220px]
+
+        /* MOBILE OPEN/CLOSE */
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        md:translate-x-0
       `}
     >
-      
-      <NavLink to={"/"} className="flex items-center gap-2 w-[90%] px-3 py-2 mb-6 bg-black text-white rounded-lg text-sm">
-        <FiPlus /> New Chat
-      </NavLink>
 
-      <div className="flex flex-col gap-3">
-        <SidebarItem label="BMW 330i Quote Validation" />
-        <SidebarItem label="Audi Q5 Quote Validation" />
-        <SidebarItem label="Audi A4 Quote Validation" />
+      {/* ⭐ Desktop Collapse Toggle Button */}
+      <button
+        onClick={() => setCollapsed(!collapsed)}
+        className="
+          hidden lg:flex 
+          absolute top-4 right-[-14px]
+          bg-gray-200 hover:bg-gray-300 
+          w-7 h-7 rounded-full shadow 
+          items-center justify-center
+          transition cursor-pointer
+        "
+      >
+        {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+      </button>
+
+      {/* Close on mobile */}
+      <div className="md:hidden text-end mb-4">
+        <button onClick={closeSidebar} className="text-lg">✕</button>
       </div>
 
-      <div className="text-sm mt-68 bg-gray-400 w-fit px-4 py-1 rounded-md text-white">
-        logout
+      {/* New Chat */}
+      <NavLink
+        to="/"
+        onClick={closeSidebar}
+        className={`
+          flex items-center gap-2 px-3 py-2 mb-6 
+          bg-black text-white rounded-lg text-sm w-[90%]
+          transition-all
+        `}
+      >
+        <FiPlus />
+        {!collapsed && "New Chat"}
+      </NavLink>
+
+      {/* Sidebar Items */}
+      {!collapsed && (
+      <div className="flex flex-col gap-3">
+        <SidebarItem label={!collapsed ? "BMW 330i Quote Validation" : ""} collapsed={collapsed} />
+        <SidebarItem label={!collapsed ? "Audi Q5 Quote Validation" : ""} collapsed={collapsed} />
+        <SidebarItem label={!collapsed ? "Audi A4 Quote Validation" : ""} collapsed={collapsed} />
+      </div>
+      )}
+
+      {/* Bottom Buttons */}
+      <div className="absolute bottom-10 left-4 w-full pr-4">
+
+        {/* YO NEGOTIATOR - Mobile only */}
+        <button
+          onClick={() => {
+            closeSidebar();
+            window.location.href = "/yo";
+          }}
+          className="lg:hidden text-xs w-[75%] bg-[#D4AF37] text-white py-2 rounded-lg mb-8 font-medium shadow-md active:scale-95 cursor-pointer"
+        >
+          Yo Negotiator
+        </button>
       </div>
     </aside>
   );

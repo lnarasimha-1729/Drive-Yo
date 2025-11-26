@@ -4,61 +4,87 @@ import { useNavigate } from "react-router-dom";
 
 export default function Manual() {
   const scrollRef = useRef(null);
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  // Chat History
+  const [messages, setMessages] = useState([]);
 
-  // Step controller
-  const [step, setStep] = useState(0);
-
-  // Vehicle details
+  // Form Data
   const [vehicleDetails, setVehicleDetails] = useState({
     make: "",
     model: "",
     trim: "",
-    zip: ""
+    zip: "",
   });
 
-  // Lease term
+  const [incentives, setIncentives] = useState({
+    military: false,
+    aaa: false,
+    loyalty: false,
+  });
+
   const [leaseTerm, setLeaseTerm] = useState(null);
-
-  // Miles
-  const [userMiles, setUserMiles] = useState(null);
-
-  // Status selection
-  const [userStatus, setUserStatus] = useState(null);
-
-  // Negotiation choice (Yes / No)
+  const [miles, setMiles] = useState(null);
   const [negotiationChoice, setNegotiationChoice] = useState(null);
+
+  const [step, setStep] = useState(0);
 
   // Auto-scroll
   useEffect(() => {
-    scrollRef.current?.scrollTo({
-      top: scrollRef.current.scrollHeight,
-      behavior: "smooth",
-    });
-  }, [step, leaseTerm, userMiles, userStatus, negotiationChoice]);
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages]);
+
+  const addMessage = (sender, text) => {
+    setMessages((prev) => [...prev, { sender, text }]);
+  };
+
+  const startFlow = () => {
+    setStep(1);
+    addMessage("YO", "Based on your quotation, the below incentives are applicable.");
+    addMessage("YO", "Please choose yes/no for the following:");
+  };
+
+  const askLeaseTerm = () => {
+    setStep(2);
+    addMessage("YO", "What lease term do you prefer?");
+  };
+
+  const askMiles = () => {
+    setStep(3);
+    addMessage("YO", "How many miles per year?");
+  };
+
+  const showAnalysisAndNegotiation = () => {
+    setStep(4);
+
+    addMessage("YO", "Analyzing the quote...");
+    addMessage("YO", "This is a GOOD deal!");
+    addMessage("YO", "However, there is still room for negotiation. You can save up to $49.");
+  };
+
+  const showPremium = () => {
+    setStep(5);
+    addMessage("YO", "Become a premium member to know which parameter to negotiate.");
+  };
 
   return (
-    <div className="flex flex-col h-screen bg-[#fafafa] mt-5">
+    <div className="flex flex-col lg:items-end h-screen bg-[#fafafa] lg:w-[85%]">
 
-      {/* Back */}
+      {/* CHAT AREA */}
       <div
-        className="py-4 text-gray-600 text-sm ml-4 cursor-pointer"
-        onClick={() => window.history.back()}
+        ref={scrollRef}
+        className="flex-1 overflow-y-auto px-4 sm:px-8 md:px-12 xl:px-40 pb-32 mt-14 lg:min-w-3xl"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        back
-      </div>
 
-      {/* SCROLL AREA */}
-      <div ref={scrollRef} className="flex-1 overflow-y-scroll w-[90%] px-28 pb-40">
-
-        {/* STEP 0 — Vehicle Details */}
+        {/* STEP 0 — VEHICLE DETAILS */}
         {step === 0 && (
-          <div className="bg-white shadow rounded-xl p-8 w-full max-w-[600px] mb-10">
+          <div className="bg-white text-xs shadow rounded-xl p-6 sm:p-8 lg:p-5 w-full max-w-sm mb-10">
+            <p className="text-sm mb-4 font-semibold">Select Car Details</p>
 
             <label className="text-sm font-semibold">Make</label>
             <select
-              className="w-full border rounded-lg px-3 py-2 mt-1 mb-4"
+              className="w-full border rounded-lg px-3 py-1.5 mt-1 mb-2"
               value={vehicleDetails.make}
               onChange={(e) =>
                 setVehicleDetails({ ...vehicleDetails, make: e.target.value })
@@ -71,7 +97,7 @@ export default function Manual() {
 
             <label className="text-sm font-semibold">Model</label>
             <select
-              className="w-full border rounded-lg px-3 py-2 mt-1 mb-4"
+              className="w-full border rounded-lg px-3 py-1.5 mt-1 mb-2"
               value={vehicleDetails.model}
               onChange={(e) =>
                 setVehicleDetails({ ...vehicleDetails, model: e.target.value })
@@ -84,7 +110,7 @@ export default function Manual() {
 
             <label className="text-sm font-semibold">Trim</label>
             <select
-              className="w-full border rounded-lg px-3 py-2 mt-1 mb-4"
+              className="w-full border rounded-lg px-3 py-1.5 mt-1 mb-2"
               value={vehicleDetails.trim}
               onChange={(e) =>
                 setVehicleDetails({ ...vehicleDetails, trim: e.target.value })
@@ -97,8 +123,8 @@ export default function Manual() {
 
             <label className="text-sm font-semibold">Zip Code</label>
             <input
-              className="w-full border rounded-lg px-3 py-2 mt-1"
-              placeholder="90120 (LA)"
+              className="w-full border rounded-lg px-3 py-1.5 mt-1"
+              placeholder="90120"
               value={vehicleDetails.zip}
               onChange={(e) =>
                 setVehicleDetails({ ...vehicleDetails, zip: e.target.value })
@@ -107,298 +133,178 @@ export default function Manual() {
           </div>
         )}
 
-        {/* STEP 1 — YO Message */}
-        {step >= 1 && (
-          <div className="flex items-center gap-3 mb-6 mt-3">
-            <div className="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-sm">
-              YO
-            </div>
-            <span className="text-sm">Great, I've got your vehicle details.</span>
+        {/* CHAT HISTORY */}
+        {messages.map((msg, idx) => (
+          <div key={idx} className="mb-4">
+            {msg.sender === "YO" ? (
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm">YO</div>
+                <p className="text-sm">{msg.text}</p>
+              </div>
+            ) : (
+              <div className="flex justify-end items-center gap-2">
+                <span className="text-sm bg-gray-200 px-3 py-2 rounded-lg">{msg.text}</span>
+                <div className="w-8 h-8 bg-gray-400 text-white rounded-full flex items-center justify-center text-sm">S</div>
+              </div>
+            )}
           </div>
-        )}
+        ))}
 
-        {/* STEP 1.5 — Lease Term Question (render once step >= 1) */}
-        {step >= 1 && (
-          <>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-sm">
-                YO
-              </div>
-              <span className="text-sm font-semibold">What lease term do you prefer?</span>
-            </div>
-
-            <div className="flex gap-3 mb-8 cursor-pointer ml-12">
-              {["12 months", "24 months", "36 months"].map((term) => {
-                const selected = leaseTerm === term;
-                return (
-                  <button
-                    key={term}
-                    disabled={!!leaseTerm}
-                    onClick={() => {
-                      if (!leaseTerm) {
-                        setLeaseTerm(term);
-                        setTimeout(() => setStep(2), 200); // move to next question
-                      }
-                    }}
-                    className={
-                      "px-4 py-2 border rounded-lg text-sm " +
-                      (selected ? "bg-gray-100 border-gray-400 font-medium" : "")
-                    }
-                  >
-                    {term}
-                  </button>
-                );
-              })}
-            </div>
-          </>
-        )}
-
-        {/* USER BUBBLE — Lease Term (right) */}
-        {leaseTerm && (
-          <div className="flex justify-end items-center gap-2 mb-10 mr-4">
-            <span className="text-sm">{leaseTerm}</span>
-            <div className="w-8 h-8 bg-gray-400 text-white flex items-center justify-center rounded-full text-sm">
-              S
-            </div>
-          </div>
-        )}
-
-        {/* STEP 2 — Miles Question (render once step >=2) */}
-        {step >= 2 && (
-          <>
-            <div className="flex items-center gap-3 mb-3 mt-6">
-              <div className="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-sm">
-                YO
-              </div>
-              <span className="text-sm font-semibold">
-                How many miles do you typically drive per month?
-              </span>
-            </div>
-
-            <div className="flex gap-3 cursor-pointer mb-8 ml-12">
-              {["10,000", "12,000", "15,000"].map((miles) => {
-                const selected = userMiles === miles;
-                return (
-                  <button
-                    key={miles}
-                    disabled={!!userMiles}
-                    onClick={() => {
-                      if (!userMiles) {
-                        setUserMiles(miles);
-                        setTimeout(() => setStep(3), 200);
-                      }
-                    }}
-                    className={
-                      "px-4 py-2 border rounded-lg text-sm " +
-                      (selected ? "bg-gray-100 border-gray-400 font-medium" : "")
-                    }
-                  >
-                    {miles}
-                  </button>
-                );
-              })}
-            </div>
-          </>
-        )}
-
-        {/* USER BUBBLE — Miles */}
-        {userMiles && (
-          <div className="flex justify-end items-center gap-2 mb-10 mr-4">
-            <span className="text-sm">{userMiles}</span>
-            <div className="w-8 h-8 bg-gray-400 text-white flex items-center justify-center rounded-full text-sm">
-              S
-            </div>
-          </div>
-        )}
-
-        {/* STEP 3 — Status Question (render once step >=3) */}
-        {step >= 3 && (
-          <>
-            <div className="flex items-center gap-3 mb-3 mt-4">
-              <div className="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-sm">
-                YO
-              </div>
-              <span className="text-sm font-semibold">Please select your status.</span>
-            </div>
-
-            <div className="flex gap-3 mb-8 ml-12 cursor-pointer">
-              {["Military", "Loyalty", "AAA", "N/A"].map((st) => {
-                const selected = userStatus === st;
-                return (
-                  <button
-                    key={st}
-                    disabled={!!userStatus}
-                    onClick={() => {
-                      if (!userStatus) {
-                        setUserStatus(st);
-                        setTimeout(() => setStep(4), 200);
-                      }
-                    }}
-                    className={
-                      "px-4 py-2 border rounded-lg text-sm " +
-                      (selected ? "bg-gray-100 border-gray-400 font-medium" : "")
-                    }
-                  >
-                    {st}
-                  </button>
-                );
-              })}
-            </div>
-          </>
-        )}
-
-        {/* USER BUBBLE — Status */}
-        {userStatus && (
-          <div className="flex justify-end items-center gap-2 mb-10 mr-4">
-            <span className="text-sm">{userStatus}</span>
-            <div className="w-8 h-8 bg-gray-400 text-white flex items-center justify-center rounded-full text-sm">
-              S
-            </div>
-          </div>
-        )}
-
-        {/* Next steps (example analyzing & Good Deal) — only shown after status */}
-        {step >= 4 && (
-          <>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-sm">
-                YO
-              </div>
-              <span className="text-sm">Analyzing the quote</span>
-              <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
-            </div>
-
-            <div className="flex items-center gap-3 mb-4 mt-3">
-              <div className="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-sm">YO</div>
-              <span className="text-sm">
-                This is a <span className="text-green-600 font-bold">Good Deal!</span>
-              </span>
-            </div>
-          </>
-        )}
-
-        {/* Negotiation Question — shows buttons and keeps question visible */}
-        {step >= 4 && (
-          <>
-            <div className="flex items-center gap-3 mb-3 mt-4">
-              <div className="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-sm">
-                YO
-              </div>
-              <span className="text-sm">
-                However, there is still a room for further negotiation.
-              </span>
-            </div>
-
-            {/* Buttons remain visible */}
-            <div className="flex gap-4 ml-12 mb-8">
-              <button
-                className={
-                  "px-6 py-2 border rounded-lg text-sm cursor-pointer " +
-                  (negotiationChoice === "Yes" ? "bg-gray-100 border-gray-400" : "")
-                }
-                onClick={() => {
-                  if (!negotiationChoice) {
-                    setNegotiationChoice("Yes");
-                    setTimeout(() => setStep(5), 200);
+        {/* STEP 1 — INCENTIVES */}
+        {step === 1 && (
+          <div className="ml-11 my-4 space-y-4">
+            {[
+              { label: "Are you a military personnel?", key: "military" },
+              { label: "Do you own AAA membership?", key: "aaa" },
+              { label: "Do you have a loyalty pass?", key: "loyalty" },
+            ].map((item) => (
+              <label key={item.key} className="flex items-center gap-3 text-sm">
+                <input
+                  type="checkbox"
+                  className="w-4 h-4"
+                  checked={incentives[item.key]}
+                  onChange={(e) =>
+                    setIncentives((prev) => ({
+                      ...prev,
+                      [item.key]: e.target.checked,
+                    }))
                   }
+                />
+                {item.label}
+              </label>
+            ))}
+
+            <button
+              onClick={() => {
+                addMessage(
+                  "USER",
+                  `Military: ${incentives.military ? "Yes" : "No"}, AAA: ${
+                    incentives.aaa ? "Yes" : "No"
+                  }, Loyalty: ${incentives.loyalty ? "Yes" : "No"}`
+                );
+                askLeaseTerm();
+              }}
+              className="mt-3 bg-black text-white px-5 py-2 rounded-lg text-sm"
+            >
+              Continue
+            </button>
+          </div>
+        )}
+
+        {/* STEP 2 — LEASE TERM */}
+        {step === 2 && (
+          <div className="flex flex-wrap gap-3 mb-8 ml-11">
+            {["12 months", "24 months", "36 months"].map((term) => (
+              <button
+                key={term}
+                className="px-4 py-2 border rounded-lg text-sm"
+                onClick={() => {
+                  addMessage("USER", term);
+                  setLeaseTerm(term);
+                  askMiles();
                 }}
               >
-                Yes
+                {term}
               </button>
-
-              <button
-  className={
-    "px-6 py-2 border rounded-lg cursor-pointer text-sm " +
-    (negotiationChoice === "No" ? "bg-gray-100 border-gray-400" : "")
-  }
-  onClick={() => {
-    setNegotiationChoice("No");
-
-    setTimeout(() => {
-      // RESET EVERYTHING
-      setVehicleDetails({
-        make: "",
-        model: "",
-        trim: "",
-        zip: ""
-      });
-      setLeaseTerm(null);
-      setUserMiles(null);
-      setUserStatus(null);
-      setNegotiationChoice(null);
-      setStep(0);    // Go back to START
-    }, 200);
-  }}
->
-  No
-</button>
-
-            </div>
-          </>
-        )}
-
-        {/* User bubble for negotiation choice */}
-        {negotiationChoice && (
-          <div className="flex justify-end items-center gap-2 mb-10 mr-4">
-            <span className="text-sm">{negotiationChoice}</span>
-            <div className="w-8 h-8 bg-gray-400 text-white flex items-center justify-center rounded-full text-sm">
-              S
-            </div>
+            ))}
           </div>
         )}
 
-        {/* Premium suggestion after choice */}
-        {step >= 5 && (
-          <>
-            <div className="flex items-center gap-3 mb-3 mt-4">
-              <div className="w-8 h-8 bg-black text-white flex items-center justify-center rounded-full text-sm">
-                YO
-              </div>
-              <span className="text-sm">
-                Become a premium member to know which parameter to negotiate.
-              </span>
-            </div>
-
-
-            <div onClick={()=>navigate("/yo")} className="ml-12 text-green-600 font-semibold underline cursor-pointer">
-              Go Premium
-            </div>
-          </>
+        {/* STEP 3 — MILES */}
+        {step === 3 && (
+          <div className="flex flex-wrap gap-3 mb-8 ml-11">
+            {["10,000", "12,000", "15,000"].map((m) => (
+              <button
+                key={m}
+                className="px-4 py-2 border rounded-lg text-sm"
+                onClick={() => {
+                  addMessage("USER", m);
+                  setMiles(m);
+                  showAnalysisAndNegotiation(); // <-- NEGOTIATE COMES NOW
+                }}
+              >
+                {m}
+              </button>
+            ))}
+          </div>
         )}
+
+        {/* STEP 4 — NEGOTIATE NOW */}
+        {step === 4 && (
+          <div className="flex gap-4 ml-11 my-4">
+            <button
+              className="text-sm px-8 py-2 bg-black text-white rounded-lg"
+              onClick={() => {
+                addMessage("USER", "Yes, I want to negotiate");
+                showPremium();
+              }}
+            >
+              Negotiate
+            </button>
+
+            <button
+              className="text-sm px-8 py-2 border border-black rounded-lg"
+              onClick={() => {
+                addMessage("USER", "No, I'm fine");
+                navigate("/manual");
+              }}
+            >
+              Open New Chat
+            </button>
+          </div>
+        )}
+
+        {/* STEP 5 — PREMIUM */}
+        {step === 5 && (
+          <div className="flex gap-4 ml-11 mt-4">
+            <button
+              onClick={() => navigate("/yo")}
+              className="px-8 py-2 rounded-lg bg-green-100 text-green-700 border border-green-600"
+            >
+              Go Premium
+            </button>
+
+            <button
+              className="px-8 py-2 border border-black rounded-lg"
+              onClick={() => navigate("/manual")}
+            >
+              Open New Chat
+            </button>
+          </div>
+        )}
+
       </div>
 
-
       {/* BOTTOM INPUT */}
-      <div className="fixed bottom-0 left-0 w-[80%] flex justify-center pb-6 ml-50">
-  <div className="flex items-center w-[70%] bg-white border border-gray-300 rounded-full px-4 py-3 shadow-sm">
+      <div className="bottom-0 left-0 w-full flex justify-end px-4 pb-18 bg-gradient-to-t from-[#fafafa] lg:max-w-3xl">
+        <div className="flex items-center gap-3 w-full sm:w-[90%] md:w-[70%] lg:w-full xl:w-[40%] bg-white border border-gray-300 rounded-full px-4 py-4 shadow-sm">
 
-    <input
-      type="text"
-      placeholder="Ask DriveYo"
-      className="flex-1 outline-none text-gray-600"
-    />
+          <input
+            type="text"
+            placeholder="Ask DriveYo"
+            className="flex-1 outline-none text-gray-600 text-sm"
+          />
 
-    {/* STEP 0 → Arrow submits vehicle details */}
-    {step === 0 ? (
-      <FiSend
-        className="text-gray-600 text-xl cursor-pointer ml-3"
-        onClick={() => {
-          if (
-            vehicleDetails.make &&
-            vehicleDetails.model &&
-            vehicleDetails.trim &&
-            vehicleDetails.zip
-          ) {
-            setStep(1);
-          }
-        }}
-      />
-    ) : (
-      <FiSend className="text-gray-400 text-xl ml-3" />
-    )}
-
-  </div>
-</div>
+          <FiSend
+            className="text-xl cursor-pointer ml-3 text-gray-600"
+            onClick={() => {
+              if (
+                step === 0 &&
+                vehicleDetails.make &&
+                vehicleDetails.model &&
+                vehicleDetails.trim &&
+                vehicleDetails.zip
+              ) {
+                addMessage(
+                  "USER",
+                  `${vehicleDetails.make} ${vehicleDetails.model} (${vehicleDetails.trim}) — Zip: ${vehicleDetails.zip}`
+                );
+                startFlow();
+              }
+            }}
+          />
+        </div>
+      </div>
 
     </div>
   );

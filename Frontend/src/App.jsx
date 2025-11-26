@@ -7,24 +7,27 @@ import MainHome from "./components/MainHome";
 import Quote from "./components/Quote";
 import Manual from "./components/Manual";
 import YoPremium from "./screen/YoPremium";
+import DashboardHome from "./dashoboard/DashboardHome";
 
 const Layout = ({ children }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const toggleSidebar = () => setIsOpen((prev) => !prev);
+  const closeSidebar = () => setIsOpen(false);
+
   return (
     <div className="w-full h-screen flex flex-col">
 
-      {/* NAVBAR (fixed, exact height) */}
-      <div className="w-full fixed top-0 left-0 z-20 bg-white shadow-sm h-16 flex items-center">
-        <Navbar />
+      {/* NAVBAR */}
+      <div className="w-full fixed top-0 left-0 z-20 bg-white h-14 flex items-center">
+        <Navbar toggleSidebar={toggleSidebar} />
       </div>
 
-      {/* SIDEBAR + MAIN CONTENT */}
-      <div className="flex flex-1 pt-16 overflow-hidden">
-        {/* Make pt-16 EXACTLY equal to navbar height */}
+      {/* SIDEBAR + CONTENT */}
+      <div className="flex flex-1 lg:pt-5 overflow-hidden">
 
-        {/* SIDEBAR */}
-        <aside className="bg-white shadow-md md:w-[20%] lg:w-[18%] h-full">
-          <Sidebar />
-        </aside>
+        {/* SIDEBAR (NO WRAPPER!) */}
+        <Sidebar isOpen={isOpen} closeSidebar={closeSidebar} />
 
         {/* MAIN CONTENT */}
         <main className="flex-1 overflow-auto p-6 bg-gray-50">
@@ -38,29 +41,46 @@ const Layout = ({ children }) => {
 
 
 
+
 function AppRoutes() {
   const location = useLocation();
   const isYoPremium = location.pathname === "/yo";
+  const isAdmin = location.pathname.startsWith("/admin");
 
+  // Yo Premium pages run without layout
+  if (isYoPremium) {
+    return (
+      <Routes>
+        <Route path="/yo" element={<YoPremium />} />
+      </Routes>
+    );
+  }
+
+  // ADMIN pages – NO layout wrapper
+  if (isAdmin) {
+    return (
+      <Routes>
+        <Route path="/admin/*" element={<DashboardHome />} />
+      </Routes>
+    );
+  }
+
+  // USER PAGES — WITH LAYOUT (Quote / Manual / Home)
   return (
-    <div>
-      {isYoPremium ? (
-        <Routes>
-          <Route path="/yo" element={<YoPremium />} />
-        </Routes>
-      ) : (
-        <Layout>
-          <Routes>
-            <Route path="/" element={<MainHome />} />
-            <Route path="/quote" element={<Quote />} />
-            <Route path="/manual" element={<Manual />} />
-            <Route path="/yo" element={<YoPremium />} />
-          </Routes>
-        </Layout>
-      )}
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<MainHome />} />
+        <Route
+  path="/quote"
+  element={<Quote key={Date.now()} />}
+/>
+        <Route path="/manual" element={<Manual key={Date.now()} />} />
+        <Route path="/yo" element={<YoPremium />} />
+      </Routes>
+    </Layout>
   );
 }
+
 
 
 export default function App() {
