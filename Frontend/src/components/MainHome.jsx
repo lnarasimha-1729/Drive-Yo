@@ -32,12 +32,12 @@ export default function MainHome() {
 
       {/* Center Section */}
       <div className="flex flex-col items-center text-center mt-20 lg:mt-20 md:mt-20 lg:mr-0 gap-2">
-        
-        <p className="text-2xl md:text-3xl lg:text-3xl font-bold mb-4">
-          Welcome to DriveYo
-        </p>
 
-        <p className="text-sm sm:text-base md:text-md text-gray-600 max-w-md sm:max-w-lg md:max-w-2xl mb-8">
+        <h3 className="text-2xl lg:text-3xl font-semibold mb-4">
+          Welcome to DriveYo
+        </h3>
+
+        <p className="text-sm sm:text-base md:text-md lg:text-base text-gray-600 max-w-md sm:max-w-lg md:max-w-2xl mb-8">
           DriveYo, your car leasing assistant. Get the best deals,
           validate quotes, and negotiate with dealerships effortlessly.
         </p>
@@ -57,7 +57,7 @@ export default function MainHome() {
               onClick={() => navigate("/quote", { state: { autoOpenUpload: true } })}
               className="
                 px-4 py-2 bg-black text-white rounded-lg 
-                text-xs sm:text-sm font-medium cursor-pointer
+                text-xs sm:text-sm lg:text-sm font-medium cursor-pointer
               "
             >
               Yes, I have a quote
@@ -67,7 +67,7 @@ export default function MainHome() {
               onClick={() => navigate("/manual")}
               className="
                 px-4 py-2 border-2 border-black rounded-lg 
-                text-xs sm:text-sm font-medium cursor-pointer
+                text-xs sm:text-sm lg:text-sm font-medium cursor-pointer
               "
             >
               No, I need help finding a car
@@ -85,22 +85,33 @@ export default function MainHome() {
         ">
           <input
             type="text"
-            onChange={(e)=>setText(e.target.value)}
+            onChange={(e) => setText(e.target.value)}
             placeholder={placeholders[index]}
-            className={`flex-1 outline-none text-sm sm:text-base ${
-              animate ? "animate-placeholderUp" : ""
-            }`}
+            className={`flex-1 outline-none text-sm lg:text-base ${animate ? "animate-placeholderUp" : ""
+              }`}
           />
-          <FiSend
-            className={`text-xl cursor-pointer transition duration-200 
+
+          <div className="relative group">
+            <FiSend
+              className={`text-xl cursor-pointer transition duration-200 
               ${text.trim().length > 0 ? "text-black" : "text-gray-300 cursor-default"}
             `}
-            onClick={() => {
-              if (text.trim().length > 0) {
-                console.log("Submitted:", text);
-              }
-            }}
-          />
+              onClick={() => {
+                if (text.trim().length > 0) {
+                  console.log("Submitted:", text);
+                }
+              }}
+            />
+
+            <span className="
+    absolute left-1/2 -translate-x-1/2 -top-7 
+    bg-black text-white text-xs px-2 py-1 rounded 
+    opacity-0 group-hover:opacity-100 
+    transition-all
+  ">
+              Send
+            </span>
+          </div>
         </div>
       </div>
 

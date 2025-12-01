@@ -6,11 +6,12 @@ const Settings = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full min-h-screen bg-[#fafafa]">
+    <div className="min-w-full min-h-screen bg-[#fafafa]">
 
       <Navbar/>
 
       {/* Breadcrumb */}
+      <div className="px-8 pb-8">
       <div className="flex items-center gap-2 mb-6 px-6">
         <span
           onClick={() => navigate("/admin/dashboard")}
@@ -35,12 +36,12 @@ const Settings = () => {
       </div>
 
       {/* MAIN CONTAINER */}
-      <div className="bg-white rounded-2xl shadow py-6 px-24 w-full max-w-6xl mx-auto">
+      <div className="bg-white rounded-2xl shadow py-6 px-24 w-full min-w-6xl mx-auto">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="flex flex-col lg:flex-row lg:justify-center gap-4">
 
           {/* PASSWORD SECTION */}
-          <div className="rounded-2xl p-8 shadow-sm">
+          <div className="rounded-2xl p-8 shadow-sm lg:w-2/5">
             <h2 className="text-lg font-semibold mb-2">Password</h2>
             <p className="text-gray-600 text-sm mb-6">
               Change your password regularly to keep your account secure.
@@ -53,7 +54,7 @@ const Settings = () => {
                 <input
                   type="password"
                   placeholder="Current Password"
-                  className="w-full mt-1 px-4 py-1.5 border rounded-lg text-sm"
+                  className="w-full mt-1 px-4 py-1.5 border rounded-sm text-sm"
                 />
               </div>
             </div>
@@ -65,7 +66,7 @@ const Settings = () => {
                 <input
                   type="password"
                   placeholder="New Password"
-                  className="w-full mt-1 px-4 py-1.5 border rounded-lg text-sm"
+                  className="w-full mt-1 px-4 py-1.5 border rounded-sm text-sm"
                 />
               </div>
             </div>
@@ -77,7 +78,7 @@ const Settings = () => {
                 <input
                   type="password"
                   placeholder="Re-enter New Password"
-                  className="w-full mt-1 px-4 py-1.5 border rounded-lg text-sm"
+                  className="w-full mt-1 px-4 py-1.5 border rounded-sm text-sm"
                 />
               </div>
             </div>
@@ -89,7 +90,7 @@ const Settings = () => {
           </div>
 
           {/* LOGIN HISTORY SECTION */}
-          <div className="rounded-2xl p-8 shadow-sm h-fit">
+          <div className="rounded-2xl p-8 shadow-sm h-fit lg:w-2/5">
             <h2 className="text-lg font-semibold mb-2">Login History</h2>
             <p className="text-gray-600 text-sm mb-6">
               Review your recent login activity and devices that have accessed your account.
@@ -112,6 +113,7 @@ const Settings = () => {
           </div>
 
         </div>
+      </div>
       </div>
       </div>
     </div>

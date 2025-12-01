@@ -48,7 +48,7 @@ export default function AdminProfile() {
         <div
           className="
             absolute right-0 mt-1 
-            !w-40 sm:w-64 md:w-72 lg:w-50 
+            w-40 sm:w-64 md:w-72 lg:w-50 
             bg-white rounded-xl shadow-xl 
             border border-gray-100 p-5 
             z-50

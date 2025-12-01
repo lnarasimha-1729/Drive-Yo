@@ -15,7 +15,7 @@ export default function Dashboard() {
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
   return (
-    <div className="p-8 sm:p-5 md:p-8 lg:py-10 bg-gray-50 min-h-screen">
+    <div className="p-8 sm:p-5 md:p-8 lg:py-8 lg:px-6 bg-gray-50 min-h-screen">
 
       {/* Heading */}
       <div className="flex items-end justify-between lg:mb-2">
@@ -24,10 +24,10 @@ export default function Dashboard() {
       </p>
       <Adminprofile/>
       </div>
-      <div className="border-b mt-2 mb-4 sm:mb-6"></div>
+      <div className="border-b mt-2 mb-4 sm:mb-4"></div>
 
       {/* Top Stats Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-5 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-3 mb-4">
         
         {/* Card */}
         <div className="p-4 sm:p-5 bg-white rounded-lg shadow flex items-center justify-between">
@@ -74,7 +74,7 @@ export default function Dashboard() {
 
       {/* Month Selector */}
       <div className="bg-white p-3 sm:p-4 rounded-lg shadow flex flex-wrap 
-                      items-center gap-2 sm:gap-4 mb-6">
+                      items-center gap-2 sm:gap-4 mb-4">
 
         <button className="p-1.5 bg-blue-700 text-white rounded">
           <FiChevronLeft />
@@ -118,19 +118,19 @@ export default function Dashboard() {
           <div className="overflow-x-auto">
             <table className="w-full text-left min-w-[420px] sm:min-w-[450px]">
               <thead className="text-xs sm:text-sm">
-                <tr className="border-b text-gray-700">
+                <tr className="border-b border-gray-400 text-gray-700">
                   <th className="p-3">Dealer Name</th>
                   <th className="p-3">Location</th>
                   <th className="p-3">Leases</th>
                 </tr>
               </thead>
               <tbody className="text-xs sm:text-sm">
-                <tr className="border-b">
+                <tr className="border-b border-gray-400">
                   <td className="p-3">Metro Motors</td>
                   <td className="p-3">Los Angeles, CA</td>
                   <td className="p-3">142</td>
                 </tr>
-                <tr className="border-b">
+                <tr className="border-b border-gray-400">
                   <td className="p-3">Sunset Auto Group</td>
                   <td className="p-3">Miami, FL</td>
                   <td className="p-3">115</td>
@@ -153,19 +153,19 @@ export default function Dashboard() {
           <div className="overflow-x-auto">
             <table className="w-full text-left min-w-[420px] sm:min-w-[450px]">
               <thead className="text-xs sm:text-sm">
-                <tr className="border-b text-gray-700">
+                <tr className="border-b border-gray-400 text-gray-700">
                   <th className="p-3">Vehicle Name</th>
                   <th className="p-3">Location</th>
                   <th className="p-3">Leases</th>
                 </tr>
               </thead>
               <tbody className="text-xs sm:text-sm">
-                <tr className="border-b">
+                <tr className="border-b border-gray-400">
                   <td className="p-3">BMW 330i</td>
                   <td className="p-3">Los Angeles, CA</td>
                   <td className="p-3">142</td>
                 </tr>
-                <tr className="border-b">
+                <tr className="border-b border-gray-400">
                   <td className="p-3">Audi Q5</td>
                   <td className="p-3">Miami, FL</td>
                   <td className="p-3">115</td>
@@ -193,7 +193,7 @@ export default function Dashboard() {
           <div className="overflow-x-auto">
             <table className="w-full text-left min-w-[420px] sm:min-w-[450px]">
               <thead className="text-xs sm:text-sm">
-                <tr className="border-b text-gray-700">
+                <tr className="border-b border-gray-400 text-gray-700">
                   <th className="p-3">Customer Name</th>
                   <th className="p-3">Location</th>
                   <th className="p-3">Leases</th>
@@ -218,7 +218,7 @@ export default function Dashboard() {
           <div className="overflow-x-auto">
             <table className="w-full text-left min-w-[420px] sm:min-w-[450px]">
               <thead className="text-xs sm:text-sm">
-                <tr className="border-b text-gray-700">
+                <tr className="border-b border-gray-400 text-gray-700">
                   <th className="p-3">Zip Code</th>
                   <th className="p-3">City</th>
                   <th className="p-3">Leases</th>

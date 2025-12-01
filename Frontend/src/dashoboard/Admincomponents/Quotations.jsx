@@ -44,17 +44,17 @@ export default function Quotations() {
   );
 
   return (
-    <div className="p-8 sm:p-6 md:p-8 lg:py-10">
+    <div className="p-8 sm:p-6 md:p-8 lg:py-8 lg:px-6">
 
       {/* Page Title */}
       <div className="flex items-end justify-between lg:mb-2">
       <p className="text-lg sm:text-3xl lg:text-2xl font-semibold">Quotations</p>
       <AdminProfile/>
       </div>
-      <div className="border-b mt-2 mb-5 sm:mb-6" />
+      <div className="border-b mt-2 mb-5 sm:mb-4" />
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3 mb-4">
 
         <div className="p-4 sm:p-5 bg-white rounded-lg shadow flex items-center justify-between">
           <div>

@@ -12,7 +12,7 @@ export default function Sidebar({ isOpen, closeSidebar }) {
     <aside
       className={`
         fixed md:static top-0 left-0 h-full 
-        bg-white shadow-sm z-60 p-4 py-4 lg:py-8 
+        bg-white shadow-sm z-60 pl-2 py-4 lg:py-8 
         transform transition-all duration-300 mt-14 lg:mt-9
 
         /* WIDTH CONTROL */
@@ -30,14 +30,38 @@ export default function Sidebar({ isOpen, closeSidebar }) {
         onClick={() => setCollapsed(!collapsed)}
         className="
           hidden lg:flex 
-          absolute top-4 right-[-14px]
+          absolute top-4 -right-4
           bg-gray-200 hover:bg-gray-300 
           w-7 h-7 rounded-full shadow 
           items-center justify-center
-          transition cursor-pointer
+          transition cursor-e-resize
         "
       >
-        {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+        {collapsed ? 
+        <div className="relative group">
+        <ChevronRight size={18} />
+
+        <span className="
+    absolute left-1/2 translate-x-1/3 top-0 
+    bg-black text-white text-xs px-2 py-1 rounded 
+    opacity-0 group-hover:opacity-100 
+    transition-all
+  ">
+    Open Sidebar
+  </span>
+        </div> : 
+        <div className="relative group">
+        <ChevronLeft size={18} />
+
+        <span className="
+    absolute left-1/2 -translate-x-1/2 -top-12 
+    bg-black text-white text-xs px-2 py-1 rounded 
+    opacity-0 group-hover:opacity-100 
+    transition-all
+  ">
+    Close Sidebar
+  </span>
+        </div>}
       </button>
 
       {/* Close on mobile */}
@@ -50,8 +74,8 @@ export default function Sidebar({ isOpen, closeSidebar }) {
         to="/"
         onClick={closeSidebar}
         className={`
-          flex items-center gap-2 px-3 py-2 mb-6 
-          bg-black text-white rounded-lg text-sm w-[90%]
+          flex items-center gap-2 px-3 py-2 mb-2
+          bg-black text-white rounded-lg text-sm w-[80%]
           transition-all
         `}
       >
@@ -61,11 +85,23 @@ export default function Sidebar({ isOpen, closeSidebar }) {
 
       {/* Sidebar Items */}
       {!collapsed && (
-      <div className="flex flex-col gap-3">
+        <>
+        <div className="pl-3 mb-2 text-black">Chats</div>
+      <div className="flex flex-col gap-3 overflow-y-scroll h-[75%]">
+        <SidebarItem label={!collapsed ? "BMW 330i Quote Validation" : ""} collapsed={collapsed} />
+        <SidebarItem label={!collapsed ? "Audi Q5 Quote Validation" : ""} collapsed={collapsed} />
+        <SidebarItem label={!collapsed ? "Audi A4 Quote Validation" : ""} collapsed={collapsed} />
+        <SidebarItem label={!collapsed ? "BMW 330i Quote Validation" : ""} collapsed={collapsed} />
+        <SidebarItem label={!collapsed ? "Audi Q5 Quote Validation" : ""} collapsed={collapsed} />
+        <SidebarItem label={!collapsed ? "Audi A4 Quote Validation" : ""} collapsed={collapsed} />
+        <SidebarItem label={!collapsed ? "BMW 330i Quote Validation" : ""} collapsed={collapsed} />
+        <SidebarItem label={!collapsed ? "Audi Q5 Quote Validation" : ""} collapsed={collapsed} />
+        <SidebarItem label={!collapsed ? "Audi A4 Quote Validation" : ""} collapsed={collapsed} />
         <SidebarItem label={!collapsed ? "BMW 330i Quote Validation" : ""} collapsed={collapsed} />
         <SidebarItem label={!collapsed ? "Audi Q5 Quote Validation" : ""} collapsed={collapsed} />
         <SidebarItem label={!collapsed ? "Audi A4 Quote Validation" : ""} collapsed={collapsed} />
       </div>
+      </>
       )}
 
       {/* Bottom Buttons */}

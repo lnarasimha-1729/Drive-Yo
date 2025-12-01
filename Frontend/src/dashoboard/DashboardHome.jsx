@@ -41,11 +41,11 @@ const DashboardHome = () => {
       {!hideSidebar && (
         <aside
           className={`
-            fixed md:static top-0 left-0 w-2/4 h-full z-40 w-2/3
+            fixed md:static top-0 left-0 h-full z-40
             bg-gradient-to-b from-blue-800 to-blue-950 text-white
             transition-all duration-300 ease-in-out
             flex flex-col
-            ${open ? "w-64" : "w-0 md:w-64"}
+            ${open ? "w-44" : "w-0 md:w-64"}
             overflow-hidden
           `}
         >

@@ -27,6 +27,7 @@ export default function Navbar({ toggleSidebar }) {
         <button onClick={() => navigate("/admin")} className="bg-black px-4 py-1.5 rounded-full text-white text-sm cursor-pointer">Admin</button>
         <button className="text-sm text-white bg-black px-4 py-1.5 rounded-full cursor-pointer">Login</button>
         <button className="text-sm border-2 px-2 py-1 rounded-full text-nowrap cursor-pointer">Sign Up</button>
+        <button className="text-sm text-white bg-black px-2 py-1 rounded-full cursor-pointer">60 credits</button>
       </div>
     </nav>
   );

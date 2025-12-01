@@ -10,7 +10,7 @@ export default function Reports() {
   const [endDate, setEndDate] = useState("01 October 2025");
 
   return (
-    <div className="p-8 sm:p-6 md:p-8 lg:py-10">
+    <div className="p-8 sm:p-6 md:p-8 lg:py-8 lg:px-6">
 
       {/* Page Title */}
       <div className="flex items-end justify-between lg:mb-2">
