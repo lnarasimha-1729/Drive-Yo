@@ -100,8 +100,8 @@ export default function Quote() {
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {welcomeMessage && (
-          <div className="flex flex-col gap-10 text-center text-sm text-gray-600 px-4 py-3 mb-4 rounded-lg mt-8">
-            <h1 className="text-3xl font-medium text-black">Welcome to Drive Yo</h1>
+          <div className="flex flex-col items-center gap-5 lg:gap-10 text-center text-sm text-gray-600 px-4 py-3 mb-4 rounded-lg mt-8">
+            <h1 className="text-xl lg:text-3xl font-medium text-black">Welcome to Drive Yo</h1>
             <span className="text-base text-gray-400 max-w-xl">DriveYo, your car leasing assistant. Get the best deals,
               validate quotes, and negotiate with dealerships effortlessly.</span>
           </div>
@@ -358,7 +358,7 @@ export default function Quote() {
             </div>
 
             <div className="flex items-start gap-3 mb-6 max-w-lg">
-              <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm">YO</div>
+              <div className="w-14 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm">YO</div>
               <p className="text-sm">
                 However, there is still a room for further negotiation, You can save up to{" "}
                 <span className="text-green-600 font-bold">$499.</span>
@@ -368,7 +368,7 @@ export default function Quote() {
             {/* YES / NO BUTTONS */}
             <div className="flex gap-4 ml-11 my-4">
               <button
-                className="text-sm px-8 py-2 bg-black text-white rounded-lg cursor-pointer"
+                className="text-sm px-4 lg:px-8 py-2 bg-black text-white rounded-lg cursor-pointer"
                 onClick={() => {
                   setNegotiationAnswer("Yes");
                   setStep(4);
@@ -378,7 +378,7 @@ export default function Quote() {
               </button>
 
               <button
-                className="text-sm px-8 py-2 border border-black rounded-lg cursor-pointer"
+                className="text-sm px-4 lg:px-8 py-2 border border-black rounded-lg cursor-pointer text-nowrap"
                 onClick={() => navigate("/quote", { state: { newChat: true, autoOpenUpload: true } })
                 }
 
@@ -410,13 +410,13 @@ export default function Quote() {
             <div className="flex gap-4 ml-11 mt-4 text-sm">
               <button
                 onClick={() => navigate("/yo")}
-                className="px-8 py-2 rounded-lg bg-green-100 text-green-700 border border-green-600 cursor-pointer"
+                className="px-4 lg:px-8 py-2 rounded-lg text-yellow-500 border border-yellow-500 cursor-pointer"
               >
                 Go Premium
               </button>
 
               <button
-                className="px-8 py-2 border border-black rounded-lg cursor-pointer"
+                className="px-4 lg:px-8 py-2 border border-black rounded-lg cursor-pointer text-nowrap"
                 onClick={() => navigate("/quote", { state: { newChat: true, autoOpenUpload: true } })}
               >
                 Open New Chat

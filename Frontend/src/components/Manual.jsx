@@ -80,148 +80,148 @@ export default function Manual() {
         {/* STEP 0 — VEHICLE DETAILS */}
         {step === 0 && (
           <>
-          <div className="text-sm text-gray-600 mb-4 ml-1">
-      Tell us about the vehicle you're interested in, and we'll help you analyze your lease instantly.
+            <div className="text-sm text-gray-600 mb-4 ml-1">
+              Tell us about the vehicle you're interested in, and we'll help you analyze your lease instantly.
 
-    </div>
+            </div>
 
-          <div className="bg-white text-sm shadow rounded-xl p-6 sm:p-8 lg:p-5 w-full max-w-sm mb-8">
-            <p className="text-sm mb-4 font-semibold">Select Car Details</p>
+            <div className="bg-white text-sm shadow rounded-xl p-6 sm:p-8 lg:p-5 w-full max-w-sm mb-4">
+              <p className="text-sm mb-4 font-semibold">Select Car Details</p>
 
-            {/* FIELD WRAPPER */}
-            <div className="space-y-2 h-64">
+              {/* FIELD WRAPPER */}
+              <div className="space-y-2 h-64">
 
-              {/* MAKE */}
-              <div>
-                <label className="text-sm font-medium">Make</label>
-                <div className="relative mt-1">
-                  <select
-                    className="
+                {/* MAKE */}
+                <div>
+                  <label className="text-sm font-medium">Make</label>
+                  <div className="relative mt-1">
+                    <select
+                      className="
             w-full border border-gray-300 rounded-lg px-3 py-2
             appearance-none cursor-pointer bg-gray-50
             focus:outline-none focus:ring-2 focus:ring-black/70 focus:border-black
             hover:bg-gray-100 transition
           "
-                    value={vehicleDetails.make}
-                    onChange={(e) =>
-                      setVehicleDetails({ ...vehicleDetails, make: e.target.value })
-                    }
-                  >
-                    <option value="">Select</option>
-                    <option value="BMW">BMW</option>
-                    <option value="Audi">Audi</option>
-                  </select>
+                      value={vehicleDetails.make}
+                      onChange={(e) =>
+                        setVehicleDetails({ ...vehicleDetails, make: e.target.value })
+                      }
+                    >
+                      <option value="">Select</option>
+                      <option value="BMW">BMW</option>
+                      <option value="Audi">Audi</option>
+                    </select>
 
-                  {/* Chevron Icon */}
-                  <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-500">
-                    ▼
+                    {/* Chevron Icon */}
+                    <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-500">
+                      ▼
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* MODEL */}
-              <div>
-                <label className="text-sm font-medium">Model</label>
-                <div className="relative mt-1">
-                  <select
-                    className="
+                {/* MODEL */}
+                <div>
+                  <label className="text-sm font-medium">Model</label>
+                  <div className="relative mt-1">
+                    <select
+                      className="
             w-full border border-gray-300 rounded-lg px-3 py-2
             appearance-none cursor-pointer bg-gray-50
             focus:outline-none focus:ring-2 focus:ring-black/70 focus:border-black
             hover:bg-gray-100 transition
           "
-                    value={vehicleDetails.model}
-                    onChange={(e) =>
-                      setVehicleDetails({ ...vehicleDetails, model: e.target.value })
-                    }
-                  >
-                    <option value="">Select</option>
-                    <option value="330i">330i</option>
-                    <option value="X5">X5</option>
-                  </select>
-                  <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-500">
-                    ▼
+                      value={vehicleDetails.model}
+                      onChange={(e) =>
+                        setVehicleDetails({ ...vehicleDetails, model: e.target.value })
+                      }
+                    >
+                      <option value="">Select</option>
+                      <option value="330i">330i</option>
+                      <option value="X5">X5</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-500">
+                      ▼
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* TRIM */}
-              <div>
-                <label className="text-sm font-medium">Trim</label>
-                <div className="relative mt-1">
-                  <select
-                    className="
+                {/* TRIM */}
+                <div>
+                  <label className="text-sm font-medium">Trim</label>
+                  <div className="relative mt-1">
+                    <select
+                      className="
             w-full border border-gray-300 rounded-lg px-3 py-2
             appearance-none cursor-pointer bg-gray-50
             focus:outline-none focus:ring-2 focus:ring-black/70 focus:border-black
             hover:bg-gray-100 transition
           "
-                    value={vehicleDetails.trim}
-                    onChange={(e) =>
-                      setVehicleDetails({ ...vehicleDetails, trim: e.target.value })
-                    }
-                  >
-                    <option value="">Select</option>
-                    <option value="Base">Base</option>
-                    <option value="Sport">Sport</option>
-                  </select>
-                  <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-500">
-                    ▼
+                      value={vehicleDetails.trim}
+                      onChange={(e) =>
+                        setVehicleDetails({ ...vehicleDetails, trim: e.target.value })
+                      }
+                    >
+                      <option value="">Select</option>
+                      <option value="Base">Base</option>
+                      <option value="Sport">Sport</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-500">
+                      ▼
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* ZIP CODE */}
-              <div>
-                <label className="text-sm font-medium">Zip Code</label>
-                <input
-                  className="
+                {/* ZIP CODE */}
+                <div>
+                  <label className="text-sm font-medium">Zip Code</label>
+                  <input
+                    className="
           w-full border border-gray-300 rounded-lg px-3 py-2 mt-1
           bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black/70 focus:border-black
           hover:bg-gray-100 transition
         "
-                  placeholder="90120"
-                  value={vehicleDetails.zip}
-                  onChange={(e) =>
-                    setVehicleDetails({ ...vehicleDetails, zip: e.target.value })
-                  }
-                />
+                    placeholder="90120"
+                    value={vehicleDetails.zip}
+                    onChange={(e) =>
+                      setVehicleDetails({ ...vehicleDetails, zip: e.target.value })
+                    }
+                  />
+                </div>
               </div>
-            </div>
 
-            {/* APPLY BUTTON */}
-            <button
-              disabled={
-                !(
-                  vehicleDetails.make &&
-                  vehicleDetails.model &&
-                  vehicleDetails.trim &&
-                  vehicleDetails.zip
-                )
-              }
-              className="
+              {/* APPLY BUTTON */}
+              <button
+                disabled={
+                  !(
+                    vehicleDetails.make &&
+                    vehicleDetails.model &&
+                    vehicleDetails.trim &&
+                    vehicleDetails.zip
+                  )
+                }
+                className="
       mt-6 bg-black text-white w-full py-2.5 rounded-lg text-sm font-medium
       disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
       transition active:scale-[0.98]
     "
-              onClick={() => {
-                if (
-                  vehicleDetails.make &&
-                  vehicleDetails.model &&
-                  vehicleDetails.trim &&
-                  vehicleDetails.zip
-                ) {
-                  addMessage(
-                    "USER",
-                    `${vehicleDetails.make} ${vehicleDetails.model} (${vehicleDetails.trim}) — Zip: ${vehicleDetails.zip}`
-                  );
-                  startFlow();
-                }
-              }}
-            >
-              APPLY
-            </button>
-          </div>
+                onClick={() => {
+                  if (
+                    vehicleDetails.make &&
+                    vehicleDetails.model &&
+                    vehicleDetails.trim &&
+                    vehicleDetails.zip
+                  ) {
+                    addMessage(
+                      "USER",
+                      `${vehicleDetails.make} ${vehicleDetails.model} (${vehicleDetails.trim}) — Zip: ${vehicleDetails.zip}`
+                    );
+                    startFlow();
+                  }
+                }}
+              >
+                APPLY
+              </button>
+            </div>
           </>
 
         )}
@@ -232,11 +232,21 @@ export default function Manual() {
           <div key={idx} className="mb-4">
             {msg.sender === "YO" ? (
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm">YO</div>
-                <p className="text-sm">{msg.text}</p>
+                <div
+                  className="
+    flex-shrink-0 aspect-square
+    w-8 h-8 sm:w-8 sm:h-8
+    rounded-full flex items-center justify-center
+    text-xs sm:text-sm font-semibold leading-none uppercase select-none
+    bg-black text-white
+  "
+                >
+                  YO
+                </div>
+                <p className="text-sm break-">{msg.text}</p>
               </div>
             ) : (
-              <div className="flex justify-end items-center gap-2">
+              <div className="flex justify-end items-center gap-2 mb-10">
                 <span className="text-sm bg-gray-200 px-3 py-2 rounded-lg">{msg.text}</span>
                 <div className="w-8 h-8 bg-gray-400 text-white rounded-full flex items-center justify-center text-sm">S</div>
               </div>
@@ -326,7 +336,7 @@ export default function Manual() {
         {step === 4 && (
           <div className="flex gap-4 ml-11 my-4 text-sm">
             <button
-              className="text-sm px-8 py-2 bg-black text-white rounded-lg cursor-pointer"
+              className="text-sm px-4 lg:px-8 py-2 bg-black text-white rounded-lg cursor-pointer"
               onClick={() => {
                 addMessage("USER", "Yes, I want to negotiate");
                 showPremium();
@@ -336,7 +346,7 @@ export default function Manual() {
             </button>
 
             <button
-              className="text-sm px-8 py-2 border border-black rounded-lg cursor-pointer"
+              className="text-sm px-4 lg:px-8 py-2 border border-black rounded-lg cursor-pointer text-nowrap"
               onClick={() => {
                 addMessage("USER", "No, I'm fine");
                 navigate("/manual");
@@ -349,16 +359,16 @@ export default function Manual() {
 
         {/* STEP 5 — PREMIUM */}
         {step === 5 && (
-          <div className="flex gap-4 ml-11 mt-4 text-sm">
+          <div className="flex gap-4 ml-11 mt-0 text-sm">
             <button
               onClick={() => navigate("/yo")}
-              className="px-8 py-2 rounded-lg bg-green-100 text-green-700 border border-green-600 cursor-pointer"
+              className="px-4 lg:px-8 py-0 rounded-lg text-yellow-500 border border-yellow-500 cursor-pointer text-nowrap"
             >
               Go Premium
             </button>
 
             <button
-              className="px-8 py-2 border border-black rounded-lg cursor-pointer"
+              className="px-4 lg:px-8 py-2 border border-black rounded-lg cursor-pointer text-nowrap"
               onClick={() => navigate("/manual")}
             >
               Open New Chat

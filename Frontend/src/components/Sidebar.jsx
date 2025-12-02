@@ -12,7 +12,7 @@ export default function Sidebar({ isOpen, closeSidebar }) {
     <aside
       className={`
         fixed md:static top-0 left-0 h-full 
-        bg-white shadow-sm z-60 pl-2 py-4 lg:py-8 
+        bg-white shadow-sm z-60 pl-2 py-2 lg:py-8 
         transform transition-all duration-300 mt-14 lg:mt-9
 
         /* WIDTH CONTROL */
@@ -66,7 +66,7 @@ export default function Sidebar({ isOpen, closeSidebar }) {
 
       {/* Close on mobile */}
       <div className="md:hidden text-end mb-4">
-        <button onClick={closeSidebar} className="text-lg">✕</button>
+        <button onClick={closeSidebar} className="text-lg mr-2">✕</button>
       </div>
 
       {/* New Chat */}
@@ -74,20 +74,32 @@ export default function Sidebar({ isOpen, closeSidebar }) {
         to="/"
         onClick={closeSidebar}
         className={`
-          flex items-center gap-2 px-3 py-2 mb-2
-          bg-black text-white rounded-lg text-sm w-[80%]
+          flex items-center gap-2 px-3 py-2 mb-4
+          bg-black text-white rounded-lg text-sm ${collapsed ? "w-[65%]" : "w-[80%]"}
           transition-all
         `}
       >
+        <div className="relative group">
         <FiPlus />
+        {collapsed &&
+        <span className="
+    absolute left-1/2 -translate-x-1/3 top-0 lg:top-8 
+    bg-black text-white text-xs px-2 py-1 rounded 
+    opacity-0 group-hover:opacity-100 
+    transition-all text-nowrap
+  ">
+              New Chat
+            </span>
+}
+        </div>
         {!collapsed && "New Chat"}
       </NavLink>
 
       {/* Sidebar Items */}
       {!collapsed && (
         <>
-        <div className="pl-3 mb-2 text-black">Chats</div>
-      <div className="flex flex-col gap-3 overflow-y-scroll h-[75%]">
+        <div className="pl-3 mb-1 text-black">Chats</div>
+      <div className="flex flex-col gap-3 overflow-y-scroll h-[65%] lg:h-[75%]">
         <SidebarItem label={!collapsed ? "BMW 330i Quote Validation" : ""} collapsed={collapsed} />
         <SidebarItem label={!collapsed ? "Audi Q5 Quote Validation" : ""} collapsed={collapsed} />
         <SidebarItem label={!collapsed ? "Audi A4 Quote Validation" : ""} collapsed={collapsed} />
