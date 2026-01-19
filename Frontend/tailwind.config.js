@@ -16,7 +16,10 @@ module.exports = {
   },
   animation: {
     placeholderSlideUp: "placeholderSlideUp 0.35s ease forwards"
-  }
+  },
+  fontFamily: {
+      sans: ["Inter", "system-ui", "sans-serif"],
+    },
 }
 
 
